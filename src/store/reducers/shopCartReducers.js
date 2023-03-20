@@ -9,15 +9,9 @@ const shopCartSlice = createSlice({
   name: "shopCart",
   initialState,
   reducers: {
-    addToCart(state, action) {
-      state.cartItems = action.payload;
-    },
-    removeFromCart(state, action) {
-      state.cartItems = action.payload;
-    },
-    deleteFromCart(state, action) {
-      state.cartItems = action.payload;
-    },
+    triggerCartItems: (state, action) => {
+      state.cartItems = action.payload
+    }
   },
 });
 const { actions, reducer } = shopCartSlice;
