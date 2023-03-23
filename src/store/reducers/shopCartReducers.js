@@ -10,8 +10,9 @@ const shopCartSlice = createSlice({
   initialState,
   reducers: {
     triggerCartItems: (state, action) => {
-      state.cartItems = action.payload
-    }
+      state.cartItems = action.payload;
+      state.cartTotal += state.cartItems[0]["price"];
+    },
   },
 });
 const { actions, reducer } = shopCartSlice;

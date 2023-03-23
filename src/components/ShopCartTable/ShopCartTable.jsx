@@ -1,25 +1,33 @@
 import { Button, Table } from "react-bootstrap";
 import { useDispatch, useSelector } from "react-redux";
 
-import { cartAddBook, cartDeleteBook, cartRemoveBook } from "../../store/actions/cartItemsCreator";
+import {
+  cartAddBook,
+  cartDeleteBook,
+  cartRemoveBook,
+  createItem,
+} from "../../store/actions/cartItemsCreator";
 
-
-const ShopCartTable = () => {
+const ShopCartTable = (el, index) => {
   const items = useSelector((state) => state.ShopCartReducer.cartItems);
-  const dispatch = useDispatch();
+  const totalPrice = useSelector((state) => state.ShopCartReducer.cartTotal);
 
+  const dispatch = useDispatch();
+  const { title, count, total, id } = el;
+  console.log(total);
   const renderItems = (el, index) => {
     const { title, count, total, id } = el;
     const onAddToCart = () => dispatch(cartAddBook(id));
     const onRemoveFromCart = () => dispatch(cartRemoveBook(id));
     const onDeleteFromCart = () => dispatch(cartDeleteBook(id));
-
+    console.log(count * items.length);
     return (
       <tr key={`shop-item-${id}`}>
         <td>{index + 1}</td>
         <td>{title}</td>
         <td>{count}</td>
         <td>{total}$</td>
+
         <td>
           <Button variant="outline-success" onClick={onAddToCart}>
             <i className="fa-solid fa-circle-plus"></i>
@@ -50,7 +58,7 @@ const ShopCartTable = () => {
 
         <tbody>{items.map(renderItems)}</tbody>
       </Table>
-      <div>Total: 500$</div>
+      <div>Total: {totalPrice}$</div>
     </div>
   );
 };
